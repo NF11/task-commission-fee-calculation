@@ -85,7 +85,7 @@ In each output line only final calculated commission fee for a specific operatio
 2016-02-15,1,private,withdraw,300.00,EUR
 2016-02-19,5,private,withdraw,3000000,JPY
 
-➜  php script.php input.csv
+➜  php cli_calc run 'input.csv'
 0.6
 3
 0
