@@ -44,8 +44,8 @@ class CalcCommand extends Command
                 $dataResult->add(
                     [
                         Transaction::INDEX => $transactions[Transaction::INDEX],
-                        'commission_fee' => $calculator
-                            ->depositRuleFee($transactions[Transaction::AMOUNT], $transactions[Transaction::CURRENCY_CODE])
+                        'commission_fee' => round($calculator
+                            ->depositRuleFee($transactions[Transaction::AMOUNT], $transactions[Transaction::CURRENCY_CODE]), config('params.currencyDefaultScale'))
                     ]
                 );
             }
@@ -57,8 +57,8 @@ class CalcCommand extends Command
                 $dataResult->add(
                     [
                         Transaction::INDEX => $transactions[Transaction::INDEX],
-                        'commission_fee' => $calculator
-                            ->withdrawnBusinessRuleFee($transactions[Transaction::AMOUNT], $transactions[Transaction::CURRENCY_CODE])
+                        'commission_fee' => round($calculator
+                            ->withdrawnBusinessRuleFee($transactions[Transaction::AMOUNT], $transactions[Transaction::CURRENCY_CODE]), config('params.currencyDefaultScale'))
                     ]
                 );
             }
@@ -73,19 +73,12 @@ class CalcCommand extends Command
                     $dataResult->add(
                         [
                             Transaction::INDEX => $transactions[Transaction::INDEX],
-                            'commission_fee' => $calculator
-                                ->withdrawnPrivateRuleFee($transactions, $userTransactions)
+                            'commission_fee' => round($calculator
+                                ->withdrawnPrivateRuleFee($transactions, $userTransactions), config('params.currencyDefaultScale'))
                         ]
                     );
                 }
             }
-            $dataResult = $dataResult->transform(function ($item) {
-
-                return [
-                    'commission_fee' => round($item['commission_fee'], 1),
-                    'index' => $item['index']
-                ];
-            });
             $dataResult = $dataResult->sortBy('index');
             $writer->write($dataResult->sortBy('index'));
 
