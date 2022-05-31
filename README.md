@@ -89,7 +89,7 @@ In each output line only final calculated commission fee for a specific operatio
 0.6
 3
 0
-0.1
+0.06
 1.5
 0
 3
@@ -98,7 +98,7 @@ In each output line only final calculated commission fee for a specific operatio
 3
 0
 0
-8590.9
+8587.65
 ```
 
 Note: the last transaction output is not like the given example.
